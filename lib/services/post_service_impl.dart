@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:jsonplaceholder_riverpod_mvvm_v1/models/post.dart';
 import 'package:jsonplaceholder_riverpod_mvvm_v1/services/post_service.dart';
@@ -24,7 +26,7 @@ class PostServiceImpl implements PostService {
         '/posts',
         data: post.toJson(), // 포스트 데이터를 JSON 형식으로 전송합니다.
       );
-      if(response.statusCode == 201 || response.statusCode == 200) {
+      if (response.statusCode == 201 || response.statusCode == 200) {
         return Post.fromJson(response.data);
       } else {
         throw Exception('Failed to create post');
@@ -32,25 +34,59 @@ class PostServiceImpl implements PostService {
     } catch (e) {
       throw Exception("Error created post : $e");
     }
+  }
+
+  // DELETE 요청을 보내어 특정 게시글을 삭제 요청
+  @override
+  Future<void> deletePost(int id) async {
+    try {
+      final response = await _dio.delete("/posts/$id");
+      // 응답 상태 코드가 200인 경우 삭제 성공
+      if (response.statusCode != 200) {
+        throw Exception('Failed to delete post');
+      }
+    } catch (e) {
+      throw Exception('Error deleting post : $e');
+    }
+  }
+
+  @override
+  Future<List<Post>> fetchPosts() async {
+    try {
+      final response = await _dio.get('/posts');
+      // 응답 상태 코드가 200인 경우 데이터를 파싱 합니다.
+      if (response.statusCode == 200) {
+        List<dynamic> data = response.data;
+        // 각 JSON 객체를 Post  모델로 변환하여 리스트로 반환합니다.
+        return data.map((json) => Post.fromJson(json)).toList();
+      } else {
+        throw Exception('Failed to load posts');
+      }
+    } catch (e) {
+      // 네트워크 오류 등 예외 발생 시 예외를 던집니다.
+      throw Exception('Error fetching posts: $e');
+    }
+    // Dart에서 아직 구현되지 않은 메서드나 기능을 호출하려 할 때 발생하는 에러
     throw UnimplementedError();
   }
 
   @override
-  Future<void> deletePost(int id) {
-    // TODO: implement deletePost
-    throw UnimplementedError();
-  }
+  Future<Post> updatePost(Post post) async {
+    try {
+      // 'posts/{id} 엔드 포인트로 put
+      final response = await _dio.put(
+        '/posts/${post.id}',
+         data: post.toJson()
+      );
 
-  @override
-  Future<List<Post>> fetchPosts() {
-    // TODO: implement fetchPosts
-    throw UnimplementedError();
+      if (response.statusCode == 200) {
+        return Post.fromJson(response.data);
+      } else {
+        // 상태 코드가 200 이 아닐 때 예외 던짐
+        throw Exception('Failed to update post');
+      }
+    } catch (e) {
+      throw Exception('Error updating post : $e');
+    }
   }
-
-  @override
-  Future<Post> updatePost(Post post) {
-    // TODO: implement updatePost
-    throw UnimplementedError();
-  }
-
 }
