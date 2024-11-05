@@ -25,6 +25,7 @@ class PostViewModel extends StateNotifier<List<Post>> {
 
   PostViewModel(this._postService) : super([]) {
     // 생성자 바디
+    fetchPosts();
   }
 
   // 뷰모델에 역할 -->  뷰에 전달할 데이터를 마련하고 관리 한다.

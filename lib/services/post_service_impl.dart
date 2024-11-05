@@ -58,6 +58,9 @@ class PostServiceImpl implements PostService {
       if (response.statusCode == 200) {
         List<dynamic> data = response.data;
         // 각 JSON 객체를 Post  모델로 변환하여 리스트로 반환합니다.
+        print("---------코드확인 1--------------------");
+        print("data: $data");
+        print("---------코드확인 2--------------------");
         return data.map((json) => Post.fromJson(json)).toList();
       } else {
         throw Exception('Failed to load posts');
