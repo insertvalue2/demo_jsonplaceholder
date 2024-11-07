@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jsonplaceholder_riverpod_mvvm_v1/providers/post_view_model_provider.dart';
+import 'package:jsonplaceholder_riverpod_mvvm_v1/view/create_post_screen.dart';
 
 import '../models/post.dart';
 
 class PostListScreen extends ConsumerWidget {
+  
   const PostListScreen({super.key});
 
   @override
@@ -43,8 +45,12 @@ class PostListScreen extends ConsumerWidget {
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // 플로팅 액션 버튼을 눌렀을 때의 동작을 정의할 수 있습니다.
-          // 예: 새로운 포스트를 생성하는 화면으로 이동하거나, 다이얼로그를 열 수 있습니다.
+
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CreatePostScreen())
+          );
         },
         child: const Icon(Icons.add), // 버튼의 아이콘을 설정합니다.
       ),
