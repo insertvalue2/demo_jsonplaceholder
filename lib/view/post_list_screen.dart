@@ -6,7 +6,6 @@ import 'package:jsonplaceholder_riverpod_mvvm_v1/view/create_post_screen.dart';
 import '../models/post.dart';
 
 class PostListScreen extends ConsumerWidget {
-  
   const PostListScreen({super.key});
 
   @override
@@ -40,17 +39,43 @@ class PostListScreen extends ConsumerWidget {
                     // 포스트를 눌렀을 때의 동작을 정의할 수 있습니다.
                     // 예: 포스트 상세 화면으로 이동하거나, 업데이트/삭제 기능을 구현할 수 있습니다.
                   },
+                  trailing: IconButton(
+                      onPressed: () async  {
+                        bool confirm = await showDialog(context: context, builder: (context) => AlertDialog(
+                          title: const Text('삭제'),
+                          content: Text('${post.title} 를 삭제 하시겠습니까?'),
+                          actions: [
+                            TextButton(onPressed: () {
+                              Navigator.of(context).pop(false);
+                            }, child: const Text('취소')),
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(true),
+                              child: const Text('삭제'),
+                            )
+
+                          ],
+                        ),);
+                        if (confirm) {
+                          // ViewModel의 deletePost 메서드 호출
+                          await ref.read(postViewModelProvider.notifier).deletePost(post.id!);
+
+                          // 삭제 완료 후 스낵바로 피드백 제공
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('포스트 "${post.title}"이(가) 삭제되었습니다.')),
+                          );
+                        }
+                      },
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),),
                 );
               },
             ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
-
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CreatePostScreen())
-          );
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => CreatePostScreen()));
         },
         child: const Icon(Icons.add), // 버튼의 아이콘을 설정합니다.
       ),

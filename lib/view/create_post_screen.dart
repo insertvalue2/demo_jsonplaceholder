@@ -64,7 +64,9 @@ class _CreatePostScreenState extends ConsumerState<CreatePostScreen> {
                     _formKey.currentState?.save();
                     // 새로운 포스트 생성
                     final newPost = Post(title: _title, body: _body);
+                    // 통신 요청 처리
                     await ref.read(postViewModelProvider.notifier).createPost(newPost);
+
                     // 생성 후 이전 화면으로 돌아가기
                     Navigator.pop(context);
                   }

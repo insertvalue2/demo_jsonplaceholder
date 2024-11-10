@@ -27,6 +27,7 @@ class PostServiceImpl implements PostService {
         data: post.toJson(), // 포스트 데이터를 JSON 형식으로 전송합니다.
       );
       if (response.statusCode == 201 || response.statusCode == 200) {
+        print('포스트 생성 후 응답 확인 : ${response.data}');
         return Post.fromJson(response.data);
       } else {
         throw Exception('Failed to create post');
