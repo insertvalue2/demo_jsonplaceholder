@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jsonplaceholder_riverpod_mvvm_v1/models/post.dart';
-import 'package:jsonplaceholder_riverpod_mvvm_v1/providers/post_view_model_provider.dart';
+import 'package:jsonplaceholder_riverpod_mvvm_v1/providers/state_noti_provider/post_view_model_provider.dart';
 
 class CreatePostScreen extends ConsumerStatefulWidget {
   const CreatePostScreen({super.key});

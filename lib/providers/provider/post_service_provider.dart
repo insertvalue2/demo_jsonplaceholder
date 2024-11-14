@@ -1,7 +1,7 @@
 
 // PostServiceImpl의 인스턴스를 제공하는 Riverpod Provider입니다
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jsonplaceholder_riverpod_mvvm_v1/providers/dio_provider.dart';
+import 'package:jsonplaceholder_riverpod_mvvm_v1/providers/provider/dio_provider.dart';
 import 'package:jsonplaceholder_riverpod_mvvm_v1/services/post_service_impl.dart';
 
 
@@ -13,9 +13,9 @@ import 'package:jsonplaceholder_riverpod_mvvm_v1/services/post_service_impl.dart
 // ref를 통해 프로바이더 내에서 다른 프로바이더를 읽거나 라이프사이클을 관리할 수 있습니다.
 final postServiceProvider = Provider<PostServiceImpl>((ref) {
   // dioProvider를 통해 Dio 인스턴스를 가져옵니다.
-  final dio = ref.read(dioProvider);
+  final _dio = ref.read(dioProvider);
   // PostServiceImpl를 생성하고 반환합니다.
-  return PostServiceImpl(dio);
+  return PostServiceImpl(_dio);
 });
 
 

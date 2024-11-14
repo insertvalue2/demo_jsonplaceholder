@@ -16,4 +16,7 @@ abstract class PostService {
   // 득정 게시글을 삭제합니다.
   Future<void> deletePost(int id);
 
+  // 상세 보기 화면 요청
+  Future<Post> fetchPostById(int id); // 추가
+
 }

@@ -1,8 +1,8 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../viewmodels/post_view_model.dart';
-import 'post_service_provider.dart';
-import '../models/post.dart';
+import '../../viewmodels/post_view_model.dart';
+import '../provider/post_service_provider.dart';
+import '../../models/post.dart';
 
 /// PostViewModel의 인스턴스를 제공하는 Riverpod Provider입니다.
 /// PostService를 주입받아 ViewModel을 초기화합니다.

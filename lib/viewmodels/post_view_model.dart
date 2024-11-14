@@ -122,12 +122,12 @@ class PostViewModel extends StateNotifier<List<Post>> {
       }
 
       // 상태(state)를 업데이트된 포스트 리스트로 변경합니다.
-      // state = updatedPosts;
+      state = updatedPosts;
 
       // 2단계
       // 현재 상태에서 해당 포스트를 제거합니다.
       print('post 삭제 요청 완료 ');
-      state = state.where((p) => p.id != id).toList();
+      // state = state.where((p) => p.id != id).toList();
     } catch (e) {
       // 에러가 발생한 경우, 현재는 아무 작업도 하지 않습니다.
       // 추후 에러 상태를 관리할 수 있습니다.

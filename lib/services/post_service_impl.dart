@@ -93,4 +93,18 @@ class PostServiceImpl implements PostService {
       throw Exception('Error updating post : $e');
     }
   }
+
+  @override
+  Future<Post> fetchPostById(int id) async {
+    try {
+      final response = await _dio.get('/posts/$id');
+      if (response.statusCode == 200) {
+        return Post.fromJson(response.data);
+      } else {
+        throw Exception('Failed to load post');
+      }
+    } catch (e) {
+      throw Exception('Error fetching post: $e');
+    }
+  }
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jsonplaceholder_riverpod_mvvm_v1/providers/post_view_model_provider.dart';
+import 'package:jsonplaceholder_riverpod_mvvm_v1/providers/state_noti_provider/post_view_model_provider.dart';
 import 'package:jsonplaceholder_riverpod_mvvm_v1/view/create_post_screen.dart';
 
 import '../models/post.dart';
+import 'detail_post_screen.dart';
 
 class PostListScreen extends ConsumerWidget {
   const PostListScreen({super.key});
@@ -38,6 +39,14 @@ class PostListScreen extends ConsumerWidget {
                   onTap: () {
                     // 포스트를 눌렀을 때의 동작을 정의할 수 있습니다.
                     // 예: 포스트 상세 화면으로 이동하거나, 업데이트/삭제 기능을 구현할 수 있습니다.
+                    // 상세보기 화면으로 이동
+                    // 상세보기 화면으로 이동
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailPostScreen(postId: post.id!),
+                      ),
+                    );
                   },
                   trailing: IconButton(
                       onPressed: () async  {
